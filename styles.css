@@ -3,11 +3,12 @@
     box-shadow: 2px;
 }
 body{
-    background-color: rgb(32, 53, 52);
+    /* background-color: rgb(32, 53, 52); */
+    background-color: rgb(219, 236, 240);
 }
 body > * {
     margin: 15px;
-    /* border: 2px dashed black; */
+    border: 2px dashed black;
 }
 .header{
     height: 20%;
@@ -22,7 +23,20 @@ body > * {
     order: -1;
 }
 #avatar-name{
-    color: rgb(2, 14, 26);
+    color: rgb(255, 255, 255);
     font-size: 300%;
     margin-left: 5vw;
+}
+
+.footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(151, 156, 165);
+    color: white;
+    text-align: center;
+}
+.footer > *{
+    margin: 5px 2px;
 }
