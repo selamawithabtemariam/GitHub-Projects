@@ -23,19 +23,12 @@ function requestUserRepos(username){
             const eachUrl = data[i].html_url;
             const hasPages = data[i].hasPages;
 
-            console.log("Repo : " , eachTitle);
-            console.log("Description : " , eachDesc);
-            console.log("URL : " , eachUrl);
-
-            if(data[i].has_pages === true){
-                console.log("-----> > > > > > Has a GitHub page");
-            }
             const newProject = document.createElement('a');
             newProject.href = eachUrl;
             newProject.innerText = eachTitle;
             
             if(eachDesc != null)
-                newProject.innerText += " desc : " + eachDesc;
+                newProject.innerText += " : " + eachDesc;
 
             projectList.appendChild(newProject);
         }
