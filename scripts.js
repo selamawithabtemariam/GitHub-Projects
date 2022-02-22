@@ -15,14 +15,29 @@ function requestUserRepos(username){
 
         console.log(data);
 
+        const projectList = document.querySelector(".api-data");
+
         for(let i in data){
-            console.log("Repo : " , data[i].name);
-            console.log("Description : " , data[i].description);
-            console.log("URL : " , data[i].html_url);
+            const eachTitle = data[i].name;
+            const eachDesc = data[i].description;
+            const eachUrl = data[i].html_url;
+            const hasPages = data[i].hasPages;
+
+            console.log("Repo : " , eachTitle);
+            console.log("Description : " , eachDesc);
+            console.log("URL : " , eachUrl);
 
             if(data[i].has_pages === true){
                 console.log("-----> > > > > > Has a GitHub page");
             }
+            const newProject = document.createElement('a');
+            newProject.href = eachUrl;
+            newProject.innerText = eachTitle;
+            
+            if(eachDesc != null)
+                newProject.innerText += " desc : " + eachDesc;
+
+            projectList.appendChild(newProject);
         }
     }
     xhr.send();
