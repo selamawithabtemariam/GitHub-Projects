@@ -1,0 +1,28 @@
+*{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    box-shadow: 2px;
+}
+body{
+    background-color: rgb(32, 53, 52);
+}
+body > * {
+    margin: 15px;
+    /* border: 2px dashed black; */
+}
+.header{
+    height: 20%;
+    background-color: rgb(56, 83, 82);
+    box-shadow: 10px 10px 20px black;
+    display: flex;
+    border-radius: 20px;
+}
+#avatar{
+    height: 20vh;
+    border-radius: 20px;
+    order: -1;
+}
+#avatar-name{
+    color: rgb(2, 14, 26);
+    font-size: 300%;
+    margin-left: 5vw;
+}
