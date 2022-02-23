@@ -84,6 +84,7 @@ h3{
     font-size: 15px;
     box-shadow: 0px 0px 2px rgb(102, 101, 101);
     border-radius: 2px;
+    margin: 2px;
 }
 /* Add a background color to the button 
 if it is clicked on 
@@ -97,4 +98,14 @@ if it is clicked on
     background-color: #f1f1f1;
     max-height: 0px;
     transition: max-height 0.2s ease-out;
+}
+.collapsible:after {
+    content: '\02795'; /* Unicode character for "plus" sign (+) */
+    font-size: 13px;
+    color: white;
+    float: right;
+    margin-left: 5px;
+}
+.active:after {
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
 }
