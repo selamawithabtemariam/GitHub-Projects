@@ -1,10 +1,10 @@
-function requestUserRepos(username){
+function populateFields(username){
     const xhr = new XMLHttpRequest();
     const url = `https://api.github.com/users/${username}/repos`;
-    
-    xhr.open('GET', url, true);
 
+    xhr.open('GET', url, true);
     // parsing through the request
+    let listOfTitles = [];
     xhr.onload = function() {
         const data = JSON.parse(this.response);
         // console.log(data);
@@ -14,6 +14,10 @@ function requestUserRepos(username){
             const eachDesc = data[i].description;
             const eachUrl = data[i].html_url;
             const hasPages = data[i].hasPages;
+            
+            // add to the repo name list
+            listOfTitles.push(eachTitle);
+            // if hasPages is true add a link to it.
 
             // repo button
             const newRepo = repoButtonMaker(eachTitle, eachDesc, projectList);
@@ -24,6 +28,7 @@ function requestUserRepos(username){
             makeItCollapsible(newRepo);
             projectList.appendChild(repoContent);
         }
+        drawMainChart(username, listOfTitles);
     }
     xhr.send();
 }
@@ -64,7 +69,70 @@ function makeItCollapsible(thisOne){
             }
     });
 }
-// public static void main ... lol
+function drawMainChart(userURL, listOfRepo){
+    const ctx = document.getElementById('user-languages');
+    const xhrLan = new XMLHttpRequest();
+    console.log(listOfRepo);
 
+    for(const eachRepo of listOfRepo){
+        const urlLan = `https://api.github.com/repos/${userURL}/${eachRepo}/languages`;
+        xhrLan.open('GET', urlLan, true);
+
+        xhrLan.onload = function() {
+            const languagesList = JSON.parse(this.response);
+            console.log(languagesList);
+            for(let langs in languagesList){
+                console.log(langs);
+            }
+        }
+        xhrLan.send();
+    }
+    
+    let labels = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'];
+    let labelData = [34, 42, 19, 45];
+
+    const mainChart = chartMain(ctx, labels, labelData);
+}
+
+function chartMain(ctx, labels, labelData) {
+    return new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Language breakdown',
+                data: labelData,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+// public static void main ... lol
 let githubUser = 'abrahammehari';
-requestUserRepos(githubUser);
+populateFields(githubUser);
+
+// make use of bubbling of DOM elements
