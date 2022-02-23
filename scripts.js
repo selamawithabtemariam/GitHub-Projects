@@ -76,6 +76,7 @@ function drawMainChart(userURL, listOfRepo){
 
     for(const eachRepo of listOfRepo){
         const urlLan = `https://api.github.com/repos/${userURL}/${eachRepo}/languages`;
+        console.log(urlLan);
         xhrLan.open('GET', urlLan, true);
 
         xhrLan.onload = function() {
