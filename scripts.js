@@ -17,7 +17,7 @@ function requestUserRepos(username){
 
             // repo button
             const newRepo = repoButtonMaker(eachTitle, eachDesc, projectList);
-
+            
             // details within the repo (collapsibles)
             const repoContent = repoContentMaker(eachUrl);
             
@@ -37,22 +37,19 @@ function repoButtonMaker(eachTitle, eachDesc, projectList) {
     projectList.appendChild(newRepo);
     return newRepo;
 }
-
 function repoContentMaker(eachUrl) {
     const repoContent = document.createElement('div');
     repoContent.className = 'repo-content';
     const repoLink = document.createElement('a');
     repoLink.href = eachUrl;
-    repoLink.innerText = "link to repository";
+    repoLink.innerText = "Goto repository";
     const trial = document.createElement('h1');
-    trial.textContent = "hellow mf!";
+    trial.textContent = "Graphs and details about the repo";
     repoContent.appendChild(trial);
     repoContent.appendChild(repoLink);
     return repoContent;
 }
-
 function makeItCollapsible(thisOne){
-    console.log("attaching");
     thisOne.addEventListener('click', function(){
             thisOne.classList.toggle("active");
             var content = this.nextElementSibling;
