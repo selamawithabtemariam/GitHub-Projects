@@ -13,14 +13,16 @@ function populateFields(username){
             const eachTitle = data[i].name;
             const eachDesc = data[i].description;
             const eachUrl = data[i].html_url;
+            const eachLanguage = data[i].language;
+            console.log("built with " + eachLanguage);
             const hasPages = data[i].hasPages;
-            
+
             // add to the repo name list
             listOfTitles.push(eachTitle);
             // if hasPages is true add a link to it.
 
             // repo button
-            const newRepo = repoButtonMaker(eachTitle, eachDesc, projectList);
+            const newRepo = repoButtonMaker(eachTitle, eachDesc, eachLanguage, projectList);
             
             // details within the repo (collapsibles)
             const repoContent = repoContentMaker(eachUrl);
@@ -32,11 +34,13 @@ function populateFields(username){
     }
     xhr.send();
 }
-function repoButtonMaker(eachTitle, eachDesc, projectList) {
+function repoButtonMaker(eachTitle, eachDesc, eachLanguage, projectList) {
     const newRepo = document.createElement('button');
     newRepo.type = "button";
     newRepo.className = "collapsible";
     newRepo.innerText = eachTitle;
+    console.log("language :  " + eachLanguage);
+    newRepo.innerText += " -> " + eachLanguage
     if (eachDesc != null)
         newRepo.innerText += " : " + eachDesc;
     projectList.appendChild(newRepo);
@@ -137,3 +141,9 @@ let githubUser = 'abrahammehari';
 populateFields(githubUser);
 
 // make use of bubbling of DOM elements
+// make use of the languages property from api
+// and apply to the buttons leading to the details
+// of every repo
+
+// to work around "api call limit", limit requests to only one.
+// once the whole logic is working, OAuth can be added.
