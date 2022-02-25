@@ -9,12 +9,15 @@ function populateFields(username){
         const data = JSON.parse(this.response);
         // console.log(data);
         const projectList = document.querySelector(".api-data");
+        let languagesList = [];
         for(let i in data){
             const eachTitle = data[i].name;
             const eachDesc = data[i].description;
             const eachUrl = data[i].html_url;
             const eachLanguage = data[i].language;
-            console.log("built with " + eachLanguage);
+            // console.log("built with " + eachLanguage);
+            // languagesList.push(eachLanguage);
+
             const hasPages = data[i].hasPages;
 
             // add to the repo name list
@@ -29,6 +32,7 @@ function populateFields(username){
             
             makeItCollapsible(newRepo);
             projectList.appendChild(repoContent);
+            // break;
         }
         drawMainChart(username, listOfTitles);
     }
@@ -39,7 +43,7 @@ function repoButtonMaker(eachTitle, eachDesc, eachLanguage, projectList) {
     newRepo.type = "button";
     newRepo.className = "collapsible";
     newRepo.innerText = eachTitle;
-    console.log("language :  " + eachLanguage);
+    // console.log("language :  " + eachLanguage);
     newRepo.innerText += " -> " + eachLanguage
     if (eachDesc != null)
         newRepo.innerText += " : " + eachDesc;
@@ -84,21 +88,27 @@ function drawMainChart(userURL, listOfRepo){
         xhrLan.open('GET', urlLan, true);
 
         xhrLan.onload = function() {
-            const languagesList = JSON.parse(this.response);
+            let languagesList = JSON.parse(this.response);
+            console.log("list of languages");
             console.log(languagesList);
-            for(let langs in languagesList){
-                console.log(langs);
+            
+            // for(const [key, value] of languagesList)
+            //     console.log();
+
+            // looping through fields in an object
+            for (const index in languagesList) {
+                console.log("pring from for in loop");
+                console.log(`${index}: ${languagesList[index]}`);
             }
         }
         xhrLan.send();
     }
     
-    let labels = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'];
-    let labelData = [34, 42, 19, 45];
+    let labels = ['Java', 'JS', 'CSS', 'HTML', 'C++', 'SCSS'];
+    let labelData = [40, 30, 20, 10, 2, 7];
 
     const mainChart = chartMain(ctx, labels, labelData);
 }
-
 function chartMain(ctx, labels, labelData) {
     return new Chart(ctx, {
         type: 'bar',
@@ -136,14 +146,13 @@ function chartMain(ctx, labels, labelData) {
     });
 }
 
+// oh Java, I miss you already
 // public static void main ... lol
+// let githubUser = 'okalu';
 let githubUser = 'abrahammehari';
 populateFields(githubUser);
 
 // make use of bubbling of DOM elements
-// make use of the languages property from api
-// and apply to the buttons leading to the details
-// of every repo
 
 // to work around "api call limit", limit requests to only one.
 // once the whole logic is working, OAuth can be added.
